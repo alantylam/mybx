@@ -1,0 +1,6 @@
+framework module Pods_Mybx {
+  umbrella header "Pods-Mybx-umbrella.h"
+
+  export *
+  module * { export * }
+}
