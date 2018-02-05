@@ -12,19 +12,20 @@ struct NetworkMetaData {
     
     static var scheme: String {
         get {
-            return "http"
+            return "https"
         }
     }
     
     static var host: String {
         get {
-            return  "54.146.197.152"
+            //return  "54.146.197.152"
+            return "mybeautyxpert.com"
         }
     }
     
     static var port: Int {
         get {
-            return 80
+            return 443
         }
     }
     
