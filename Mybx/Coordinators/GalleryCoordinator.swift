@@ -39,6 +39,7 @@ final class GalleryCoordinator: TabBarCoordinator {
         
         let favManager = UserDefaultManager()
         
+        // sets up each category tab, loaded into PhotosVC view controller (grid of photos)
         let pgManager_hair = PaginationManager(resource: InstaItem.items(forCategory: .hair), paginationOptions: .defaultOptions)
         let vm_hair = PhotosViewModel(favManager: favManager, pgManager: pgManager_hair)
         vm_hair.showXpert = { [weak self] item in

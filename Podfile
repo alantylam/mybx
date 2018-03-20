@@ -6,6 +6,7 @@ target 'Mybx' do
   use_frameworks!
 
   # Pods for Mybx
+    pod 'GoogleSignIn'
     pod 'Cosmos', '~> 12.0'
     pod 'Firebase/Core'
     pod 'Firebase/Database'

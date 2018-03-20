@@ -43,7 +43,14 @@ final class MyBXViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       setupTableView()
+        // PLACEHOLDER: sets up table view of favourites
+        setupTableView()
+        
+        setupLogin()
+    }
+    
+    private func setupLogin() {
+        // TODO: google button
     }
     
     private func setupTableView() {
