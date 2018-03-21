@@ -20,7 +20,7 @@ final class MyBxCoordinator: TabBarCoordinator {
     func createViewController() -> UINavigationController {
         let vm = MyBxViewModel()
         // load MyBXViewController inside the tab
-        let vc = MyBXViewController(viewModel: vm)
+        let vc = BeautyEnthusiastViewController()
         // add tab at the bottom
         vc.tabBarItem = UITabBarItem(title: "MyBX", image: #imageLiteral(resourceName: "my_bx"), selectedImage: #imageLiteral(resourceName: "my_bx"))
         return UINavigationController(rootViewController: vc)
