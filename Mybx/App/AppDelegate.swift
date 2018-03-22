@@ -50,6 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         return true
     }
     
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // Google signin setup - handle url properly that app receives at the end of authentication process
         // NOTE: This only works for IOS 9 and newer
@@ -58,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                  annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     
-
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         // Google signin setup
         if let error = error {
@@ -71,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
-            print("IN APPDELEGATE. IDTOKEN:"+idToken!)
+            print("IN APPDELEGATE. USER:"+userId!)
             let fullName = user.profile.name
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName

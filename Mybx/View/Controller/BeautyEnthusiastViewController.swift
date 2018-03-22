@@ -10,7 +10,7 @@ import UIKit
 // Google signin methods from https://github.com/googlesamples/google-services/blob/master/ios/signin/SignInExampleSwift/ViewController.swift#L33-L51
 import GoogleSignIn
 
-final class BeautyEnthusiastLoginViewController: UIViewController, GIDSignInUIDelegate {
+final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate {
     var signInButton: GIDSignInButton!
     var signOutButton: UIButton!
     var disconnectButton: UIButton!
@@ -40,7 +40,6 @@ final class BeautyEnthusiastLoginViewController: UIViewController, GIDSignInUIDe
     }
     
     // Mark : - GOOGLE SIGN IN METHODS
-    
     private func setupOtherButtons() {
         // add other buttons to screen
         
@@ -82,15 +81,13 @@ final class BeautyEnthusiastLoginViewController: UIViewController, GIDSignInUIDe
         // add signout, disconnect, status text buttons
         setupOtherButtons()
         
-        // [START_EXCLUDE]
+        // TODO problem here
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(BeautyEnthusiastViewController.receiveToggleAuthUINotification(_:)),
                                                name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
                                                object: nil)
         
-        statusText.text = "Initialized Swift app..."
         toggleAuthUI()
-        // [END_EXCLUDE]
     }
     
     @IBAction func didTapSignOut(_ sender: AnyObject) {
@@ -108,21 +105,12 @@ final class BeautyEnthusiastLoginViewController: UIViewController, GIDSignInUIDe
         // [END_EXCLUDE]
     }
     
-    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
-        if notification.name.rawValue == "ToggleAuthUINotification" {
-            self.toggleAuthUI()
-            if notification.userInfo != nil {
-                guard let userInfo = notification.userInfo as? [String:String] else { return }
-                self.statusText.text = userInfo["statusText"]!
-            }
-        }
-    }
-    
     func toggleAuthUI() {
         print("BEFORE SIGN IN CHECK")
         if GIDSignIn.sharedInstance().hasAuthInKeychain() {
             // Signed in
             print("YOU ARE SIGNED IN")
+            print(GIDSignIn.sharedInstance().clientID)
             signInButton.isHidden = true
             signOutButton.isHidden = false
             disconnectButton.isHidden = false
@@ -134,4 +122,25 @@ final class BeautyEnthusiastLoginViewController: UIViewController, GIDSignInUIDe
             statusText.text = "Google Sign in\niOS Demo"
         }
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+                                                  object: nil)
+    }
+    
+    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+        if notification.name.rawValue == "ToggleAuthUINotification" {
+            self.toggleAuthUI()
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:String] else { return }
+                self.statusText.text = userInfo["statusText"]!
+            }
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
 }
