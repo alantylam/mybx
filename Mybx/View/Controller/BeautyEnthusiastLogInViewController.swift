@@ -35,7 +35,7 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     }
     
     func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
-        // redefine CGRectMake
+        // redefine CGRectMake for newer version
         return CGRect(x: x, y: y, width: width, height: height)
     }
     
@@ -44,24 +44,26 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     private func setupOtherButtons() {
         // add other buttons to screen
         
-        signOutButton = UIButton(frame: CGRectMake(0,0,100,30))
-        signOutButton.center = CGPoint(x: view.center.x, y: 100)
+        signOutButton = UIButton(frame: CGRectMake(0,0,230,48))
+        signOutButton.backgroundColor = UIColor.black
+        signOutButton.center = CGPoint(x: view.center.x, y: 200)
         signOutButton.setTitle("Sign Out", for: UIControlState.normal)
         signOutButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
         signOutButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
         signOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(signOutButton)
         
-        disconnectButton = UIButton(frame: CGRectMake(0,0,100,30))
-        disconnectButton.center = CGPoint(x: view.center.x, y: 200)
-        disconnectButton.setTitle("Sign Out", for: UIControlState.normal)
+        disconnectButton = UIButton(frame: CGRectMake(0,0,230,48))
+        disconnectButton.backgroundColor = UIColor.black
+        disconnectButton.center = CGPoint(x: view.center.x, y: 300)
+        disconnectButton.setTitle("Disconnect", for: UIControlState.normal)
         disconnectButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
         disconnectButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
         disconnectButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapDisconnect(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(disconnectButton)
         
         statusText = UILabel(frame: CGRectMake(0,0,200,100))
-        statusText.center = CGPoint(x: view.center.x, y: 400)
+        statusText.center = CGPoint(x: view.center.x, y: 100)
         statusText.numberOfLines = 0 //Multi-lines
         statusText.text = "Please Sign in."
         statusText.textAlignment = NSTextAlignment.center
@@ -72,15 +74,12 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     private func setupLoginUI() {
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        // Uncomment to automatically sign in the user.
-        GIDSignIn.sharedInstance().signInSilently()
-        
-        // TODO Configure the sign-in button look/feel
+        // Configure the sign-in button look/feel
         signInButton = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 230, height: 48))
         signInButton.center = view.center
         signInButton.style = GIDSignInButtonStyle.standard
         view.addSubview(signInButton)
-        // add signout, disconnect, status buttons
+        // add signout, disconnect, status text buttons
         setupOtherButtons()
         
         // [START_EXCLUDE]
@@ -120,11 +119,14 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     }
     
     func toggleAuthUI() {
+        print("BEFORE SIGN IN CHECK")
         if GIDSignIn.sharedInstance().hasAuthInKeychain() {
             // Signed in
+            print("YOU ARE SIGNED IN")
             signInButton.isHidden = true
             signOutButton.isHidden = false
             disconnectButton.isHidden = false
+            GIDSignIn.sharedInstance().signInSilently()
         } else {
             signInButton.isHidden = false
             signOutButton.isHidden = true

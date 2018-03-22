@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
+            print("IN APPDELEGATE. IDTOKEN:"+idToken!)
             let fullName = user.profile.name
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName
@@ -87,12 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
         // Google signin: Perform any operations when the user disconnects from app here.
-        // [START_EXCLUDE]
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
             userInfo: ["statusText": "User has disconnected."])
-        // [END_EXCLUDE]
     }
     
     func startAppFlow() {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		40FD37D680DCAD9F05B7E000 /* Pods_Mybx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E255B06BB63A351923EA4D9D /* Pods_Mybx.framework */; };
-		417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */; };
+		417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift */; };
 		417464A52061CCB700248DBF /* BeautyEnthusiast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A42061CCB700248DBF /* BeautyEnthusiast.swift */; };
 		45D94A2E767DCD9BBEC41CE8 /* Pods_MybxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32754ADA3CD69A470D1ABB49 /* Pods_MybxTests.framework */; };
 		4D2D87F91FA10A0D004CA81E /* XpertProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D87F81FA10A0D004CA81E /* XpertProfileScreen.swift */; };
@@ -107,7 +107,7 @@
 		030AF91B73149586380DDD21 /* Pods-MybxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MybxTests/Pods-MybxTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A93996FEFED77E1A9F6EA61 /* Pods-MybxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MybxUITests/Pods-MybxUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32754ADA3CD69A470D1ABB49 /* Pods_MybxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MybxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiastViewController.swift; sourceTree = "<group>"; };
+		417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift; sourceTree = "<group>"; };
 		417464A42061CCB700248DBF /* BeautyEnthusiast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiast.swift; sourceTree = "<group>"; };
 		4D2D87F81FA10A0D004CA81E /* XpertProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpertProfileScreen.swift; sourceTree = "<group>"; };
 		4D533DEF1FC405A800CD2143 /* FavourateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavourateManager.swift; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				8D43709C1FA313CF00136D57 /* XpertListVC.swift */,
 				4D2D87F81FA10A0D004CA81E /* XpertProfileScreen.swift */,
 				4D533DF11FC40EDB00CD2143 /* MyBxViewController.swift */,
-				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */,
+				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -837,7 +837,7 @@
 				8DD1ED4E1FD798CC001402DA /* GiveawayCoordinator.swift in Sources */,
 				8DF0DE1E1F989A6D009112BD /* BaseCells.swift in Sources */,
 				8D43708F1FA3013200136D57 /* UITableView.swift in Sources */,
-				417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.swift in Sources */,
+				417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.temp_caseinsensitive_rename.swift in Sources */,
 				8DF275901FA5C1C700BAE9DD /* LoadingViewController.swift in Sources */,
 				8D4207CB1FCA832800CF2EFF /* PaginationManager.swift in Sources */,
 				8D43707D1FA29DAB00136D57 /* Xpert.swift in Sources */,
@@ -1050,6 +1050,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q5Z3QG46P6;
 				INFOPLIST_FILE = "$(SRCROOT)/Mybx/App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mybeautyxpert.app1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1066,6 +1067,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q5Z3QG46P6;
 				INFOPLIST_FILE = "$(SRCROOT)/Mybx/App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mybeautyxpert.app1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
