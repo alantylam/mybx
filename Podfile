@@ -19,6 +19,10 @@ target 'Mybx' do
     
     pod 'XLActionController'
     pod 'XLActionController/Youtube'
+    
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FBSDKLoginKit'
 
   target 'MybxTests' do
     inherit! :search_paths

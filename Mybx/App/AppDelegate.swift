@@ -12,6 +12,8 @@ import FirebaseDatabase
 // Google signin documentation https://developers.google.com/identity/sign-in/ios/sign-in?ver=swift
 import GoogleSignIn
 
+import FBSDKCoreKit
+
 extension UIApplication {
     var statusBarView: UIView? {
         return value(forKey: "statusBar") as? UIView
@@ -31,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = "183535692598-avd1hila093b0tr96np5eq2sulcpja8p.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
+        //FACEBOOK STUFF
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions:
+            launchOptions)
+        
         
         let image = UIImage(color: StyleSheet.defaultTheme.mainColor)
         UINavigationBar.appearance().shadowImage = image
@@ -47,16 +53,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         startAppFlow()
         
+        
+        
         return true
     }
     
+    //MARK: FACEBOOK STUFF
+
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let facebookHandler = FBSDKApplicationDelegate.sharedInstance().application(app, open: url as URL!, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        let googleHandler = GIDSignIn.sharedInstance().handle(url,
+                                                             sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                             annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return facebookHandler || googleHandler
+    }
+    
+    /*func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // Google signin setup - handle url properly that app receives at the end of authentication process
         // NOTE: This only works for IOS 9 and newer
         return GIDSignIn.sharedInstance().handle(url,
                                                  sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-    }
+    }*/
     
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {

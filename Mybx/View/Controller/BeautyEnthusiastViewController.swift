@@ -10,11 +10,20 @@ import UIKit
 // Google signin methods from https://github.com/googlesamples/google-services/blob/master/ios/signin/SignInExampleSwift/ViewController.swift#L33-L51
 import GoogleSignIn
 
-final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate {
+import FacebookCore
+import FacebookLogin
+import FBSDKLoginKit
+
+final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     var signInButton: GIDSignInButton!
     var signOutButton: UIButton!
     var disconnectButton: UIButton!
     var statusText: UILabel!
+    
+    var imageView : UIImageView!
+    var label: UILabel!
+    var ID: UILabel!
+
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -25,13 +34,78 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
         view.backgroundColor = StyleSheet.defaultTheme.contentBackgroundColor
+        
+        super.viewDidLoad()
+        
+        setupFacebookButtons()
+       
         
         // TODO: check if user is logged in here?
         // setup login
         setupLoginUI()
+    }
+    
+    //MARK: FACEBOOK STUFF
+    
+    func setupFacebookButtons(){
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        imageView.center = CGPoint(x: view.center.x, y: 200)
+        imageView.image = UIImage(named: "fb-art.jpg")
+        view.addSubview(imageView)
+        
+        label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        label.center = CGPoint(x: view.center.x, y: 300)
+        label.text = "Not Logged In"
+        label.textAlignment = NSTextAlignment.center
+        view.addSubview(label)
+        
+        let loginButton = FBSDKLoginButton()
+        loginButton.readPermissions = ["public_profile" , "email"]
+        loginButton.center = CGPoint(x: view.center.x, y: 400)
+        loginButton.delegate = self
+        view.addSubview(loginButton)
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Logged out with Facebook")
+        imageView.image = UIImage(named: "fb-art.jpg")
+        label.text = "Not Logged In"
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil{
+            print(error)
+            return
+        }
+        print("Successfully logged in with facebook")
+        getFacebookUserInfo()
+    }
+    
+    func getFacebookUserInfo() {
+        if(FBSDKAccessToken.current() != nil)
+        {
+            //print permissions, such as public_profile
+            print(FBSDKAccessToken.current().permissions)
+            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name, email"])
+            let connection = FBSDKGraphRequestConnection()
+            
+            connection.add(graphRequest, completionHandler: { (connection, result, error) -> Void in
+                
+                print(result!)
+                let data = result as! [String : Any]
+                print("User email is: \(data["email"]!)")
+                self.label.text = data["name"] as? String
+                
+                let FBid = data["id"] as? String
+                //self.ID.text = "User email is: \(data["email"]!)"
+                
+                let url = NSURL(string: "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1")
+                self.imageView.image = UIImage(data: NSData(contentsOf: url! as URL)! as Data)
+            })
+            connection.start()
+        }
     }
     
     func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
