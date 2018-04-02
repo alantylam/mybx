@@ -15,7 +15,7 @@ import FacebookLogin
 import FBSDKLoginKit
 
 final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
-//    var signInButton: GIDSignInButton!
+    var googleSignInButton: GIDSignInButton!
     var googleSignOutButton: UIButton!
 //    var disconnectButton: UIButton!
 //    var statusText: UILabel!
@@ -43,21 +43,27 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
        
         setupGoogleButtons()
         
-        googleSignOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-        googleSignOutButton.center = CGPoint(x: view.center.x, y: 466+66)
-        //        signOutButton.center = CGPoint(x: view.center.x, y: 100)
-        //        signOutButton.setTitle("Sign Out", for: UIControlState.normal)
-        //        signOutButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
-        //        signOutButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
-        //        signOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
-        //        view.addSubview(signOutButton)
-        
-        // TODO: check if user is logged in here?
-        // setup login
-        //setupLoginUI()
+        //toggleButtons()
+
     }
     
+        @IBAction func didTapSignOut(_ sender: AnyObject) {
+            GIDSignIn.sharedInstance().signOut()
+            label.text = "Not Logged In"
+            print("Successfully logged out of Google")
+            //toggleButtons()
+        }
     
+    func toggleButtons() {
+                if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+                    // Signed in
+                    googleSignInButton.isHidden = true
+                    googleSignOutButton.isHidden = false
+                } else {
+                    googleSignInButton.isHidden = false
+                    googleSignOutButton.isHidden = true
+                }
+    }
     
     //MARK: FACEBOOK STUFF
     
@@ -74,7 +80,7 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         view.addSubview(label)
         
         email = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        email.center = CGPoint(x: view.center.x, y: 366)
+        email.center = CGPoint(x: view.center.x, y: 350)
         email.text = "No email yet"
         email.textAlignment = NSTextAlignment.center
         view.addSubview(email)
@@ -134,14 +140,24 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     // Mark : - GOOGLE SIGN IN METHODS
     
     fileprivate func setupGoogleButtons(){
-        let googlebutton = GIDSignInButton()
-        googlebutton.center = CGPoint(x: view.center.x, y: 466)
-        view.addSubview(googlebutton)
+        googleSignInButton = GIDSignInButton()
+        googleSignInButton.center = CGPoint(x: view.center.x, y: 466)
+        view.addSubview(googleSignInButton)
         
         GIDSignIn.sharedInstance().uiDelegate = self
         
+        googleSignOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        googleSignOutButton.center = CGPoint(x: view.center.x, y: 466+66)
+        googleSignOutButton.setTitle("Sign Out of Google", for: .normal)
+        googleSignOutButton.setTitleColor(.blue, for: .normal)
+        googleSignOutButton.setTitleColor(.cyan, for: .highlighted)
+        googleSignOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
+        view.addSubview(googleSignOutButton)
+        
+        //toggleButtons()
+
+        
     }
-    
     
 //    private func setupOtherButtons() {
 //        // add other buttons to screen

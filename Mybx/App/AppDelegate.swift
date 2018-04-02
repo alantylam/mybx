@@ -87,6 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         print("Successfully logged in to Google ", user)
         
+        guard let googleName = user.profile.name else {return}
+        print("Google user name: \(googleName)")
         guard let googleIdToken = user.authentication.idToken else {return}
         guard let googleAccessToken = user.authentication.accessToken else {return}
         
