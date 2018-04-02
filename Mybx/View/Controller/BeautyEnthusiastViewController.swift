@@ -15,14 +15,14 @@ import FacebookLogin
 import FBSDKLoginKit
 
 final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
-    var signInButton: GIDSignInButton!
-    var signOutButton: UIButton!
-    var disconnectButton: UIButton!
-    var statusText: UILabel!
+//    var signInButton: GIDSignInButton!
+    var googleSignOutButton: UIButton!
+//    var disconnectButton: UIButton!
+//    var statusText: UILabel!
     
     var imageView : UIImageView!
     var label: UILabel!
-    var ID: UILabel!
+    var email: UILabel!
 
     
     init() {
@@ -41,15 +41,27 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         
         setupFacebookButtons()
        
+        setupGoogleButtons()
+        
+        googleSignOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        googleSignOutButton.center = CGPoint(x: view.center.x, y: 466+66)
+        //        signOutButton.center = CGPoint(x: view.center.x, y: 100)
+        //        signOutButton.setTitle("Sign Out", for: UIControlState.normal)
+        //        signOutButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+        //        signOutButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
+        //        signOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
+        //        view.addSubview(signOutButton)
         
         // TODO: check if user is logged in here?
         // setup login
-        setupLoginUI()
+        //setupLoginUI()
     }
+    
+    
     
     //MARK: FACEBOOK STUFF
     
-    func setupFacebookButtons(){
+    fileprivate func setupFacebookButtons(){
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         imageView.center = CGPoint(x: view.center.x, y: 200)
         imageView.image = UIImage(named: "fb-art.jpg")
@@ -60,6 +72,12 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         label.text = "Not Logged In"
         label.textAlignment = NSTextAlignment.center
         view.addSubview(label)
+        
+        email = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        email.center = CGPoint(x: view.center.x, y: 366)
+        email.text = "No email yet"
+        email.textAlignment = NSTextAlignment.center
+        view.addSubview(email)
         
         let loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile" , "email"]
@@ -97,9 +115,9 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
                 let data = result as! [String : Any]
                 print("User email is: \(data["email"]!)")
                 self.label.text = data["name"] as? String
+                self.email.text = "User email is: \(data["email"]!)"
                 
                 let FBid = data["id"] as? String
-                //self.ID.text = "User email is: \(data["email"]!)"
                 
                 let url = NSURL(string: "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1")
                 self.imageView.image = UIImage(data: NSData(contentsOf: url! as URL)! as Data)
@@ -108,102 +126,112 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         }
     }
     
-    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
-        // redefine CGRectMake
-        return CGRect(x: x, y: y, width: width, height: height)
-    }
+//    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
+//        // redefine CGRectMake
+//        return CGRect(x: x, y: y, width: width, height: height)
+//    }
     
     // Mark : - GOOGLE SIGN IN METHODS
     
-    private func setupOtherButtons() {
-        // add other buttons to screen
+    fileprivate func setupGoogleButtons(){
+        let googlebutton = GIDSignInButton()
+        googlebutton.center = CGPoint(x: view.center.x, y: 466)
+        view.addSubview(googlebutton)
         
-        signOutButton = UIButton(frame: CGRectMake(0,0,100,30))
-        signOutButton.center = CGPoint(x: view.center.x, y: 100)
-        signOutButton.setTitle("Sign Out", for: UIControlState.normal)
-        signOutButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
-        signOutButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
-        signOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
-        view.addSubview(signOutButton)
-        
-        disconnectButton = UIButton(frame: CGRectMake(0,0,100,30))
-        disconnectButton.center = CGPoint(x: view.center.x, y: 200)
-        disconnectButton.setTitle("Sign Out", for: UIControlState.normal)
-        disconnectButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
-        disconnectButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
-        disconnectButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapDisconnect(_:)), for: UIControlEvents.touchUpInside)
-        view.addSubview(disconnectButton)
-        
-        statusText = UILabel(frame: CGRectMake(0,0,200,100))
-        statusText.center = CGPoint(x: view.center.x, y: 400)
-        statusText.numberOfLines = 0 //Multi-lines
-        statusText.text = "Please Sign in."
-        statusText.textAlignment = NSTextAlignment.center
-        view.addSubview(statusText)
-        
-    }
-    
-    private func setupLoginUI() {
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        // Uncomment to automatically sign in the user.
-        GIDSignIn.sharedInstance().signInSilently()
-        
-        // TODO Configure the sign-in button look/feel
-        signInButton = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 230, height: 48))
-        signInButton.center = view.center
-        signInButton.style = GIDSignInButtonStyle.standard
-        view.addSubview(signInButton)
-        // add signout, disconnect, status buttons
-        setupOtherButtons()
-        
-        // [START_EXCLUDE]
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(BeautyEnthusiastViewController.receiveToggleAuthUINotification(_:)),
-                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
-                                               object: nil)
-        
-        statusText.text = "Initialized Swift app..."
-        toggleAuthUI()
-        // [END_EXCLUDE]
     }
     
-    @IBAction func didTapSignOut(_ sender: AnyObject) {
-        GIDSignIn.sharedInstance().signOut()
-        // [START_EXCLUDE silent]
-        statusText.text = "Signed out."
-        toggleAuthUI()
-        // [END_EXCLUDE]
-    }
     
-    @IBAction func didTapDisconnect(_ sender: AnyObject) {
-        GIDSignIn.sharedInstance().disconnect()
-        // [START_EXCLUDE silent]
-        statusText.text = "Disconnecting."
-        // [END_EXCLUDE]
-    }
+//    private func setupOtherButtons() {
+//        // add other buttons to screen
+//
+//        signOutButton = UIButton(frame: CGRectMake(0,0,100,30))
+//        signOutButton.center = CGPoint(x: view.center.x, y: 100)
+//        signOutButton.setTitle("Sign Out", for: UIControlState.normal)
+//        signOutButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+//        signOutButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
+//        signOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
+//        view.addSubview(signOutButton)
+//
+//        disconnectButton = UIButton(frame: CGRectMake(0,0,100,30))
+//        disconnectButton.center = CGPoint(x: view.center.x, y: 200)
+//        disconnectButton.setTitle("Sign Out", for: UIControlState.normal)
+//        disconnectButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+//        disconnectButton.setTitleColor(UIColor.cyan, for: UIControlState.highlighted)
+//        disconnectButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapDisconnect(_:)), for: UIControlEvents.touchUpInside)
+//        view.addSubview(disconnectButton)
+//
+//        statusText = UILabel(frame: CGRectMake(0,0,200,100))
+//        statusText.center = CGPoint(x: view.center.x, y: 400)
+//        statusText.numberOfLines = 0 //Multi-lines
+//        statusText.text = "Please Sign in."
+//        statusText.textAlignment = NSTextAlignment.center
+//        view.addSubview(statusText)
+//
+//    }
     
-    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
-        if notification.name.rawValue == "ToggleAuthUINotification" {
-            self.toggleAuthUI()
-            if notification.userInfo != nil {
-                guard let userInfo = notification.userInfo as? [String:String] else { return }
-                self.statusText.text = userInfo["statusText"]!
-            }
-        }
-    }
-    
-    func toggleAuthUI() {
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            // Signed in
-            signInButton.isHidden = true
-            signOutButton.isHidden = false
-            disconnectButton.isHidden = false
-        } else {
-            signInButton.isHidden = false
-            signOutButton.isHidden = true
-            disconnectButton.isHidden = true
-            statusText.text = "Google Sign in\niOS Demo"
-        }
-    }
+//    private func setupLoginUI() {
+//        GIDSignIn.sharedInstance().uiDelegate = self
+//
+//        // Uncomment to automatically sign in the user.
+//        GIDSignIn.sharedInstance().signInSilently()
+//
+//        // TODO Configure the sign-in button look/feel
+//        signInButton = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 230, height: 48))
+//        signInButton.center = view.center
+//        signInButton.style = GIDSignInButtonStyle.standard
+//        view.addSubview(signInButton)
+//        // add signout, disconnect, status buttons
+//        setupOtherButtons()
+//
+//        // [START_EXCLUDE]
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(BeautyEnthusiastViewController.receiveToggleAuthUINotification(_:)),
+//                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+//                                               object: nil)
+//
+//        statusText.text = "Initialized Swift app..."
+//        toggleAuthUI()
+//        // [END_EXCLUDE]
+//    }
+//
+//    @IBAction func didTapSignOut(_ sender: AnyObject) {
+//        GIDSignIn.sharedInstance().signOut()
+//        // [START_EXCLUDE silent]
+//        statusText.text = "Signed out."
+//        toggleAuthUI()
+//        // [END_EXCLUDE]
+//    }
+//
+//    @IBAction func didTapDisconnect(_ sender: AnyObject) {
+//        GIDSignIn.sharedInstance().disconnect()
+//        // [START_EXCLUDE silent]
+//        statusText.text = "Disconnecting."
+//        // [END_EXCLUDE]
+//    }
+//
+//    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+//        if notification.name.rawValue == "ToggleAuthUINotification" {
+//            self.toggleAuthUI()
+//            if notification.userInfo != nil {
+//                guard let userInfo = notification.userInfo as? [String:String] else { return }
+//                self.statusText.text = userInfo["statusText"]!
+//            }
+//        }
+//    }
+//
+//    func toggleAuthUI() {
+//        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+//            // Signed in
+//            signInButton.isHidden = true
+//            signOutButton.isHidden = false
+//            disconnectButton.isHidden = false
+//        } else {
+//            signInButton.isHidden = false
+//            signOutButton.isHidden = true
+//            disconnectButton.isHidden = true
+//            statusText.text = "Google Sign in\niOS Demo"
+//        }
+//    }
 }
