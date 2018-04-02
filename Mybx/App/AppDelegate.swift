@@ -92,17 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let googleIdToken = user.authentication.idToken else {return}
         guard let googleAccessToken = user.authentication.accessToken else {return}
         
+        let fullName = user.profile.name
+        let email = user.profile.email
+        NotificationCenter.default.post(
+            name: Notification.Name(rawValue: "ToggleAuthUINotification"),
+            object: nil,
+            userInfo: ["statusText": "Success", "googleIdToken": googleIdToken, "googleAccessToken": googleAccessToken,"fullName": fullName, "email": email])
+        
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
-        // Google signin: Perform any operations when the user disconnects from app here.
-        // [START_EXCLUDE]
+        // Google signin: Perform any operations when the user disconnects from app here
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
-            userInfo: ["statusText": "User has disconnected."])
-        // [END_EXCLUDE]
+            userInfo: ["statusText": "Disconnected"])
     }
     
     func startAppFlow() {

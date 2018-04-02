@@ -155,8 +155,28 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         view.addSubview(googleSignOutButton)
         
         //toggleButtons()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(BeautyEnthusiastViewController.receiveToggleAuthUINotification(_:)),
+                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+                                               object: nil)
 
         
+    }
+    
+    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+        if notification.name.rawValue == "ToggleAuthUINotification" {
+            guard let userInfo = notification.userInfo as? [String:String] else { return }
+            if notification.userInfo != nil {
+                if userInfo["statusText"] == "Success"{
+                    
+                    self.label.text = userInfo["fullName"]!
+                }
+                else if userInfo["statusText"] == "Disconnected"{
+                    // TODO handle ui signout here
+                }
+            }
+        }
     }
     
 //    private func setupOtherButtons() {
