@@ -137,6 +137,8 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
                     self.userName.text = userInfo["fullName"]!
                     self.email.text = userInfo["email"]!
                     self.userID.text = userInfo["googleIdToken"]!
+                    let url = NSURL(string: userInfo["imageURL"]!)!
+                    self.imageView.image = UIImage(data: NSData(contentsOf: url as URL)! as Data)
                 }
                 else if userInfo["statusText"] == "Disconnected"{
                     // TODO handle ui signout here
@@ -150,6 +152,7 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         userName.text = "Not logged in"
         email.text = "No email yet"
         userID.text = "No user ID"
+        imageView.image = #imageLiteral(resourceName: "default avatar")
         print("Successfully logged out of Google")
         toggleButtons()
     }

@@ -92,12 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let googleIdToken = user.authentication.idToken else {return}
         guard let googleAccessToken = user.authentication.accessToken else {return}
         
+        
         let fullName = user.profile.name
         let email = user.profile.email
+        var imageURL = ""
+        if user.profile.hasImage{
+            imageURL = user.profile.imageURL(withDimension: 100).absoluteString
+        }
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
-            userInfo: ["statusText": "Success", "googleIdToken": googleIdToken, "googleAccessToken": googleAccessToken,"fullName": fullName, "email": email])
+            userInfo: ["statusText": "Success", "googleIdToken": googleIdToken, "googleAccessToken": googleAccessToken,"fullName": fullName, "email": email, "imageURL": imageURL])
         
     }
     
