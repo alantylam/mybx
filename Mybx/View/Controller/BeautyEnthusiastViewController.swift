@@ -17,12 +17,11 @@ import FBSDKLoginKit
 final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     var googleSignInButton: GIDSignInButton!
     var googleSignOutButton: UIButton!
-//    var disconnectButton: UIButton!
-//    var statusText: UILabel!
     
     var imageView : UIImageView!
-    var label: UILabel!
+    var userName: UILabel!
     var email: UILabel!
+    var userID: UILabel!
 
     
     init() {
@@ -43,59 +42,30 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
        
         setupGoogleButtons()
         
-        //toggleButtons()
+        setupOtherStuff()
+        
+        toggleButtons()
 
     }
     
-        @IBAction func didTapSignOut(_ sender: AnyObject) {
-            GIDSignIn.sharedInstance().signOut()
-            label.text = "Not Logged In"
-            print("Successfully logged out of Google")
-            //toggleButtons()
-        }
-    
-    func toggleButtons() {
-                if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-                    // Signed in
-                    googleSignInButton.isHidden = true
-                    googleSignOutButton.isHidden = false
-                } else {
-                    googleSignInButton.isHidden = false
-                    googleSignOutButton.isHidden = true
-                }
-    }
     
     //MARK: FACEBOOK STUFF
     
     fileprivate func setupFacebookButtons(){
-        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        imageView.center = CGPoint(x: view.center.x, y: 200)
-        imageView.image = UIImage(named: "fb-art.jpg")
-        view.addSubview(imageView)
-        
-        label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        label.center = CGPoint(x: view.center.x, y: 300)
-        label.text = "Not Logged In"
-        label.textAlignment = NSTextAlignment.center
-        view.addSubview(label)
-        
-        email = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        email.center = CGPoint(x: view.center.x, y: 350)
-        email.text = "No email yet"
-        email.textAlignment = NSTextAlignment.center
-        view.addSubview(email)
         
         let loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile" , "email"]
-        loginButton.center = CGPoint(x: view.center.x, y: 400)
+        loginButton.center = CGPoint(x: view.center.x, y: 375)
         loginButton.delegate = self
         view.addSubview(loginButton)
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("Logged out with Facebook")
-        imageView.image = UIImage(named: "fb-art.jpg")
-        label.text = "Not Logged In"
+        imageView.image = #imageLiteral(resourceName: "default avatar")
+        userName.text = "Not logged in"
+        email.text = "No email"
+        userID.text = "No user ID"
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -119,12 +89,11 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
                 
                 print(result!)
                 let data = result as! [String : Any]
-                print("User email is: \(data["email"]!)")
-                self.label.text = data["name"] as? String
-                self.email.text = "User email is: \(data["email"]!)"
+                self.userName.text = data["name"] as? String
+                self.email.text = data["email"] as? String
                 
                 let FBid = data["id"] as? String
-                
+                self.userID.text = FBid
                 let url = NSURL(string: "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1")
                 self.imageView.image = UIImage(data: NSData(contentsOf: url! as URL)! as Data)
             })
@@ -132,29 +101,23 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         }
     }
     
-//    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
-//        // redefine CGRectMake
-//        return CGRect(x: x, y: y, width: width, height: height)
-//    }
     
     // Mark : - GOOGLE SIGN IN METHODS
     
     fileprivate func setupGoogleButtons(){
         googleSignInButton = GIDSignInButton()
-        googleSignInButton.center = CGPoint(x: view.center.x, y: 466)
+        googleSignInButton.center = CGPoint(x: view.center.x, y: 425)
         view.addSubview(googleSignInButton)
         
         GIDSignIn.sharedInstance().uiDelegate = self
         
         googleSignOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-        googleSignOutButton.center = CGPoint(x: view.center.x, y: 466+66)
-        googleSignOutButton.setTitle("Sign Out of Google", for: .normal)
+        googleSignOutButton.center = CGPoint(x: view.center.x, y: 425)
+        googleSignOutButton.setTitle("Google Sign Out", for: .normal)
         googleSignOutButton.setTitleColor(.blue, for: .normal)
         googleSignOutButton.setTitleColor(.cyan, for: .highlighted)
         googleSignOutButton.addTarget(self, action: #selector(BeautyEnthusiastViewController.didTapSignOut(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(googleSignOutButton)
-        
-        //toggleButtons()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(BeautyEnthusiastViewController.receiveToggleAuthUINotification(_:)),
@@ -168,15 +131,63 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         if notification.name.rawValue == "ToggleAuthUINotification" {
             guard let userInfo = notification.userInfo as? [String:String] else { return }
             if notification.userInfo != nil {
+                toggleButtons()
+                
                 if userInfo["statusText"] == "Success"{
-                    
-                    self.label.text = userInfo["fullName"]!
+                    self.userName.text = userInfo["fullName"]!
+                    self.email.text = userInfo["email"]!
+                    self.userID.text = userInfo["googleIdToken"]!
                 }
                 else if userInfo["statusText"] == "Disconnected"{
                     // TODO handle ui signout here
                 }
             }
         }
+    }
+    
+    @IBAction func didTapSignOut(_ sender: AnyObject) {
+        GIDSignIn.sharedInstance().signOut()
+        userName.text = "Not logged in"
+        email.text = "No email yet"
+        userID.text = "No user ID"
+        print("Successfully logged out of Google")
+        toggleButtons()
+    }
+    
+    func toggleButtons() {
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            // Signed in
+            googleSignInButton.isHidden = true
+            googleSignOutButton.isHidden = false
+        } else {
+            googleSignInButton.isHidden = false
+            googleSignOutButton.isHidden = true
+        }
+    }
+    
+    private func setupOtherStuff(){
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        imageView.center = CGPoint(x: view.center.x, y: 200)
+        imageView.image = #imageLiteral(resourceName: "default avatar")
+        view.addSubview(imageView)
+        
+        userName = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        userName.center = CGPoint(x: view.center.x, y: 275)
+        userName.text = "Not Logged In"
+        userName.textAlignment = NSTextAlignment.center
+        view.addSubview(userName)
+        
+        email = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: 30))
+        email.center = CGPoint(x: view.center.x, y: 300)
+        email.text = "No email yet"
+        email.textAlignment = NSTextAlignment.center
+        view.addSubview(email)
+        
+        userID = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: 30))
+        userID.center = CGPoint(x: view.center.x, y: 325)
+        userID.text = "No user ID yet"
+        userID.textAlignment = NSTextAlignment.center
+        view.addSubview(userID)
     }
     
 //    private func setupOtherButtons() {
@@ -231,21 +242,7 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
 //        toggleAuthUI()
 //        // [END_EXCLUDE]
 //    }
-//
-//    @IBAction func didTapSignOut(_ sender: AnyObject) {
-//        GIDSignIn.sharedInstance().signOut()
-//        // [START_EXCLUDE silent]
-//        statusText.text = "Signed out."
-//        toggleAuthUI()
-//        // [END_EXCLUDE]
-//    }
-//
-//    @IBAction func didTapDisconnect(_ sender: AnyObject) {
-//        GIDSignIn.sharedInstance().disconnect()
-//        // [START_EXCLUDE silent]
-//        statusText.text = "Disconnecting."
-//        // [END_EXCLUDE]
-//    }
+
 //
 //    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
 //        if notification.name.rawValue == "ToggleAuthUINotification" {
@@ -256,18 +253,5 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
 //            }
 //        }
 //    }
-//
-//    func toggleAuthUI() {
-//        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-//            // Signed in
-//            signInButton.isHidden = true
-//            signOutButton.isHidden = false
-//            disconnectButton.isHidden = false
-//        } else {
-//            signInButton.isHidden = false
-//            signOutButton.isHidden = true
-//            disconnectButton.isHidden = true
-//            statusText.text = "Google Sign in\niOS Demo"
-//        }
-//    }
+
 }
