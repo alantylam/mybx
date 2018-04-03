@@ -39,8 +39,6 @@ final class PhotosVC: UICollectionViewController {
             }
         }
     }
-    
-    
     // MARK: - Properties + Inits
     
     private var _noCols: Int { return 2 }
@@ -58,6 +56,15 @@ final class PhotosVC: UICollectionViewController {
     init(viewModel: PhotosViewModelType, isProfile: Bool = false) {
         _viewModel = viewModel
         _isProfile = isProfile
+        
+        var _layout: CHTCollectionViewWaterfallLayout = {
+            let layout = CHTCollectionViewWaterfallLayout()
+            layout.columnCount = 2
+            layout.minimumColumnSpacing = 0
+            layout.minimumInteritemSpacing = 0
+            return layout
+        }()
+        
         super.init(collectionViewLayout: _layout)
     }
     

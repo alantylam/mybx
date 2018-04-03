@@ -38,6 +38,8 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         
         super.viewDidLoad()
         
+        
+        
         setupFacebookButtons()
        
         setupGoogleButtons()
@@ -47,7 +49,6 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         toggleButtons()
 
     }
-    
     
     //MARK: FACEBOOK STUFF
     
@@ -101,7 +102,6 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
         }
     }
     
-    
     // Mark : - GOOGLE SIGN IN METHODS
     
     fileprivate func setupGoogleButtons(){
@@ -125,7 +125,6 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
                                                name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
                                                object: nil)
 
-        
     }
     
     @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {

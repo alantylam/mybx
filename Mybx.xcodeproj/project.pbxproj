@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1927A8AD2073841900D0A59B /* LoginOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8AC2073841900D0A59B /* LoginOptionsViewController.swift */; };
 		40FD37D680DCAD9F05B7E000 /* Pods_Mybx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E255B06BB63A351923EA4D9D /* Pods_Mybx.framework */; };
 		417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */; };
 		417464A52061CCB700248DBF /* BeautyEnthusiast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A42061CCB700248DBF /* BeautyEnthusiast.swift */; };
@@ -105,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		030AF91B73149586380DDD21 /* Pods-MybxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MybxTests/Pods-MybxTests.release.xcconfig"; sourceTree = "<group>"; };
+		1927A8AC2073841900D0A59B /* LoginOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOptionsViewController.swift; sourceTree = "<group>"; };
 		2A93996FEFED77E1A9F6EA61 /* Pods-MybxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MybxUITests/Pods-MybxUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32754ADA3CD69A470D1ABB49 /* Pods_MybxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MybxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiastViewController.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				4D2D87F81FA10A0D004CA81E /* XpertProfileScreen.swift */,
 				4D533DF11FC40EDB00CD2143 /* MyBxViewController.swift */,
 				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */,
+				1927A8AC2073841900D0A59B /* LoginOptionsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -894,6 +897,7 @@
 				8D4370931FA302D700136D57 /* UINavigationBar.swift in Sources */,
 				8D4207C51FCA748100CF2EFF /* NetworkMetaData.swift in Sources */,
 				8DFEDE421F97E8400061FA92 /* UIColor.swift in Sources */,
+				1927A8AD2073841900D0A59B /* LoginOptionsViewController.swift in Sources */,
 				8D73B08D1FCABBB00083D62E /* LoadingIndicatorCell.swift in Sources */,
 				8D4370971FA303AE00136D57 /* Location.swift in Sources */,
 				8D1908611FB1A7C200004AB9 /* AnimatedButton.swift in Sources */,
