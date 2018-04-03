@@ -105,6 +105,7 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
     // Mark : - GOOGLE SIGN IN METHODS
     
     fileprivate func setupGoogleButtons(){
+        
         googleSignInButton = GIDSignInButton()
         googleSignInButton.center = CGPoint(x: view.center.x, y: 425)
         view.addSubview(googleSignInButton)
@@ -162,6 +163,11 @@ final class BeautyEnthusiastViewController: UIViewController, GIDSignInUIDelegat
             // Signed in
             googleSignInButton.isHidden = true
             googleSignOutButton.isHidden = false
+            // gets called if user was signed in before and app is restarted
+            if (GIDSignIn.sharedInstance().currentUser == nil) {
+                print("no user info")
+                GIDSignIn.sharedInstance().signInSilently()
+            }
         } else {
             googleSignInButton.isHidden = false
             googleSignOutButton.isHidden = true
