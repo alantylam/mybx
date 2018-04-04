@@ -14,10 +14,17 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
+        setBackground()
         setLabel()
         //addCancelButton()
         setEmailField()
         setNextButton()
+    }
+    
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college") //if its in images.xcassets
+        self.view.addSubview(imageView)
     }
     
     func addCancelButton() {
@@ -35,6 +42,7 @@ class SignUpViewController: UIViewController {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
         label.center.x = view.center.x
         label.center.y = 50
+        label.textColor = .white
         label.text = "Sign up with email"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)

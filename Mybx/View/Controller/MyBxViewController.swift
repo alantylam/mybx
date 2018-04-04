@@ -45,15 +45,26 @@ final class MyBXViewController: UITableViewController {
         super.viewDidLoad()
         // PLACEHOLDER: sets up table view of favourites
         setupTableView()
+        
+        let newViewController = LoginOptionsViewController()
+        
+        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        /*
         if (true) {
             setupLoginOptions()
         }
+ */
         let loginButton = UIBarButtonItem(title: "Login", style: .done, target: self, action: #selector(showLogin))
         navigationItem.rightBarButtonItem = loginButton
     }
     
     @objc func showLogin() {
-        setupLoginOptions()
+        let newViewController = LoginOptionsViewController()
+        
+        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        //setupLoginOptions()
     }
     
     private func setupLoginOptions() {

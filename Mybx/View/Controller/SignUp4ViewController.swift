@@ -82,7 +82,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func saveButtonClicked() {
         print("Save Button Clicked!")
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     private func setSkipButton() {
@@ -102,7 +102,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func skipButtonClicked() {
         print("Skip Button Clicked!")
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {

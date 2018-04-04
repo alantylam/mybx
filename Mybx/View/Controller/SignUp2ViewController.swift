@@ -10,6 +10,7 @@ import UIKit
 
 class SignUp2ViewController: UIViewController {
 
+    var name:UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +30,9 @@ class SignUp2ViewController: UIViewController {
     
     @objc func dismissScreen() {
         //self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popToRootViewController(animated: true)
+        print("Cancel Button Clicked")
+        //TODO change this line to login options
+        //self.navigationController?.popToRootViewController(animated: true)
     }
     
     private func setLabel() {
@@ -52,7 +55,7 @@ class SignUp2ViewController: UIViewController {
     }
     
     private func setNameField() {
-        let name = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        name = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         name.center.y = 140
         name.center.x = view.center.x
         name.backgroundColor = UIColor.white
@@ -90,9 +93,8 @@ class SignUp2ViewController: UIViewController {
     
     @objc func nextButtonClicked() {
         print("Next Button Clicked!")
-        let newViewController = SignUp3ViewController(name: "John")
-        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
-    self.navigationController?.pushViewController(newViewController, animated: true)
+        let newViewController = SignUp3ViewController(name: name.text!)
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
     

@@ -41,6 +41,15 @@ class SignInViewController: UIViewController {
         username.layer.cornerRadius = 5.0
         username.layer.borderWidth = 1.0
         username.layer.borderColor = UIColor.black.cgColor
+        
+        /*
+        let arbitraryValue: Int = 5
+        if let newPosition = username.position(from: username.beginningOfDocument, offset: arbitraryValue) {
+            
+            username.selectedTextRange = username.textRange(from: newPosition, to: newPosition)
+        }
+        */
+        
         self.view.addSubview(username)
         
         let password = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
@@ -71,6 +80,7 @@ class SignInViewController: UIViewController {
     
     @objc func submitButtonClicked() {
         print("Log In Button Clicked!")
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {

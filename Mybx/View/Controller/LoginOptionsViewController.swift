@@ -16,6 +16,9 @@ class LoginOptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //navigationItem.leftBarButtonItem = nil
+        navigationItem.hidesBackButton = true
+        
         setBackground()
         
         setLogo()
@@ -32,7 +35,7 @@ class LoginOptionsViewController: UIViewController {
     
     private func signUpOptions() {
         let question = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 30))
-        question.center = CGPoint(x: view.center.x-30, y: myBXButton.center.y+50)
+        question.center = CGPoint(x: view.center.x-25, y: myBXButton.center.y+50)
         question.text = "Don't have an account?"
         question.textColor = .white
         question.textAlignment = NSTextAlignment.center
@@ -50,7 +53,7 @@ class LoginOptionsViewController: UIViewController {
         //signUp.setTitle("Sign Up", for: .normal)
         //signUp.setTitleColor(.white, for: .normal)
         signUp.backgroundColor = UIColor.clear
-        signUp.center = CGPoint(x: view.center.x + 60, y: myBXButton.center.y+50)
+        signUp.center = CGPoint(x: view.center.x + 65, y: myBXButton.center.y+50)
         signUp.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
         //signUp.titleLabel?.font = UIFont(name: (signUp.titleLabel?.font.fontName)!, size: 12)
         
@@ -99,17 +102,18 @@ class LoginOptionsViewController: UIViewController {
     }
     
     private func setFBButton() -> UIButton {
-        let button = UIButton(frame: CGRect(x: view.center.x, y: 200, width: 300, height: 50))
+        let button = UIButton(frame: CGRect(x: view.center.x, y: 100, width: 300, height: 50))
         
         button.center = CGPoint(x: view.center.x, y: (googleButton.center.y+70))
         button.backgroundColor = UIColor.rgb(r: 59, g: 89, b: 152)
         button.addTarget(self, action: #selector(fbButtonAction), for: .touchUpInside)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("LOG IN WITH FACEBOOK", for: .normal)
-        button.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
         
-        button.imageEdgeInsets = UIEdgeInsets(top: 13, left: 15, bottom: 13, right: (button.bounds.width - 40))
-        button.titleEdgeInsets = UIEdgeInsets(top: 5, left: (-(button.bounds.width*2-120)), bottom: 5, right: 5)
+        //button.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
+        //button.imageEdgeInsets = UIEdgeInsets(top: 13, left: 15, bottom: 13, right: (button.bounds.width - 40))
+        //button.titleEdgeInsets = UIEdgeInsets(top: 11, left: (-(button.bounds.width*2-200)), bottom: 11, right: 5)
+        button.titleLabel?.textAlignment = NSTextAlignment.center
         
         self.view.addSubview(button)
         return button
