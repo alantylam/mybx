@@ -48,6 +48,12 @@ final class MyBXViewController: UITableViewController {
         if (true) {
             setupLoginOptions()
         }
+        let loginButton = UIBarButtonItem(title: "Login", style: .done, target: self, action: #selector(showLogin))
+        navigationItem.rightBarButtonItem = loginButton
+    }
+    
+    @objc func showLogin() {
+        setupLoginOptions()
     }
     
     private func setupLoginOptions() {

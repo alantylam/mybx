@@ -12,6 +12,7 @@
 		1927A8B120742E6500D0A59B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B020742E6500D0A59B /* SignUpViewController.swift */; };
 		1927A8B32074636D00D0A59B /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */; };
 		1927A8B5207466AD00D0A59B /* SignUp3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */; };
+		1927A8B720748D2700D0A59B /* SignUp4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */; };
 		40FD37D680DCAD9F05B7E000 /* Pods_Mybx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E255B06BB63A351923EA4D9D /* Pods_Mybx.framework */; };
 		417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */; };
 		417464A52061CCB700248DBF /* BeautyEnthusiast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A42061CCB700248DBF /* BeautyEnthusiast.swift */; };
@@ -115,6 +116,7 @@
 		1927A8B020742E6500D0A59B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
 		1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp3ViewController.swift; sourceTree = "<group>"; };
+		1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp4ViewController.swift; sourceTree = "<group>"; };
 		2A93996FEFED77E1A9F6EA61 /* Pods-MybxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MybxUITests/Pods-MybxUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32754ADA3CD69A470D1ABB49 /* Pods_MybxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MybxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiastViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */,
 				1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */,
 				1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */,
+				1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				8D4370A11FA319DB00136D57 /* BXProfileImageView.swift in Sources */,
 				8DF275921FA5C38B00BAE9DD /* UIViewController.swift in Sources */,
 				1927A8B120742E6500D0A59B /* SignUpViewController.swift in Sources */,
+				1927A8B720748D2700D0A59B /* SignUp4ViewController.swift in Sources */,
 				1927A8AF20742E5000D0A59B /* SignInViewController.swift in Sources */,
 				8D0942461F93326200348C26 /* AppDelegate.swift in Sources */,
 				8D1908631FB94D7800004AB9 /* NSLayoutConstraint.swift in Sources */,
