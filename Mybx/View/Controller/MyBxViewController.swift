@@ -46,11 +46,11 @@ final class MyBXViewController: UITableViewController {
         // PLACEHOLDER: sets up table view of favourites
         setupTableView()
         if (true) {
-            setupLogin()
+            setupLoginOptions()
         }
     }
     
-    private func setupLogin() {
+    private func setupLoginOptions() {
         // TODO: google button
         
         let secondViewController:LoginOptionsViewController = LoginOptionsViewController()
@@ -60,10 +60,9 @@ final class MyBXViewController: UITableViewController {
         let navController = UINavigationController(rootViewController: secondViewController)
         
         let btnDone = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissNav))
-        btnDone.tintColor = UIColor.blue
+        //btnDone.tintColor = UIColor.blue
         navController.topViewController?.navigationItem.rightBarButtonItem = btnDone
-        navController.topViewController?.title = "Login"
-        
+        navController.topViewController?.title = "Login Options"
         self.present(navController, animated: true, completion: nil)
     }
     
@@ -82,9 +81,10 @@ final class MyBXViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        /*
         if (true) {
-            setupLogin()
-        }
+            setupLoginOptions()
+        }*/
         _viewModel.inputs.viewWillAppear()
         tableView.reloadData()
     }

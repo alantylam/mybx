@@ -21,9 +21,8 @@ class LoginOptionsViewController: UIViewController {
         setLogo()
         setButtons()
         signUpOptions()
-        // Do any additional setup after loading the view.
     }
-
+    
     private func setLogo() {
         let logo = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
         logo.image = #imageLiteral(resourceName: "mybx_logo_full")
@@ -60,11 +59,15 @@ class LoginOptionsViewController: UIViewController {
     
     @objc func signUpButtonAction(sender: UIButton!) {
         print("Sign Up Button tapped!")
+        let newViewController = SignUpViewController()
+        
+        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
     private func setBackground() {
         let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = #imageLiteral(resourceName: "mobile-home-college")//if its in images.xcassets
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college") //if its in images.xcassets
         self.view.addSubview(imageView)
     }
     
@@ -131,14 +134,16 @@ class LoginOptionsViewController: UIViewController {
     
     @objc func myBXButtonAction(sender: UIButton!) {
         print("MyBX Button tapped!")
+        let newViewController = SignInViewController()
+        
+        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     /*
     // MARK: - Navigation
