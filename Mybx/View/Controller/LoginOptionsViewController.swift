@@ -19,6 +19,7 @@ class LoginOptionsViewController: UIViewController {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = nil
         navigationItem.hidesBackButton = true
+        title = "Login Options"
         
         setBackground()
         
@@ -27,6 +28,15 @@ class LoginOptionsViewController: UIViewController {
         signUpOptions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Check if the user is logged in?
+        
+        // if so, go back to the profile page.
+        // self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // set and align the Logo
     private func setLogo() {
         let logo = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
         logo.image = #imageLiteral(resourceName: "mybx_logo_full")
@@ -34,16 +44,19 @@ class LoginOptionsViewController: UIViewController {
         view.addSubview(logo)
     }
     
+    // create label and sign-up button.
     private func signUpOptions() {
+        // creating label
         let question = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 30))
         question.center = CGPoint(x: view.center.x-25, y: myBXButton.center.y+50)
         question.text = "Don't have an account?"
         question.textColor = .white
         question.textAlignment = NSTextAlignment.center
         question.font = UIFont(name: question.font.fontName, size: 12)
-        
+        // add to view
         self.view.addSubview(question)
         
+        // creating label
         let signUp = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
         let yourAttributes : [NSAttributedStringKey: Any] = [
             NSAttributedStringKey.font : UIFont.systemFont(ofSize: 12),
@@ -51,36 +64,35 @@ class LoginOptionsViewController: UIViewController {
             NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue]
         let attributeString = NSMutableAttributedString(string: "Sign Up",attributes: yourAttributes)
         signUp.setAttributedTitle(attributeString, for: .normal)
-        //signUp.setTitle("Sign Up", for: .normal)
-        //signUp.setTitleColor(.white, for: .normal)
         signUp.backgroundColor = UIColor.clear
         signUp.center = CGPoint(x: view.center.x + 65, y: myBXButton.center.y+50)
         signUp.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
-        //signUp.titleLabel?.font = UIFont(name: (signUp.titleLabel?.font.fontName)!, size: 12)
-        
+        // add to view
         self.view.addSubview(signUp)
     }
     
+    // Action that gets trigger after "Sign Up" button is pressed
     @objc func signUpButtonAction(sender: UIButton!) {
         print("Sign Up Button tapped!")
         let signUpVC = SignUpViewController()
-        //let navController = UINavigationController(rootViewController: signUpVC)
+        
+        // "Pop up" a VC
         navController = UINavigationController(rootViewController: signUpVC)
         self.present(navController, animated: true, completion: (signUpCompletion))
     }
     
+    // Action gets trigger after the sign-up process is completed or cancelled
     func signUpCompletion() {
         // check if the user created an account. If so, then switch to profile screen, else, maintain login screen.
         // for now we assume user finished the sign up process.
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    // set the back ground picture
     private func setBackground() {
         let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = #imageLiteral(resourceName: "mobile-home-college") //if its in images.xcassets
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
         self.view.addSubview(imageView)
- 
-        //self.view.backgroundColor = UIColor.white
     }
     
     private func setButtons() {
@@ -95,15 +107,15 @@ class LoginOptionsViewController: UIViewController {
         button.backgroundColor = UIColor.rgb(r: 221, g: 75, b: 57)
         button.addTarget(self, action: #selector(googleButtonAction), for: .touchUpInside)
         
+        let imageSize = CGSize(width: 30.0 , height: 30.0)
+        let icon = ResizeImage(image: #imageLiteral(resourceName: "google"), targetSize: imageSize)
+        button.setImage(icon, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("LOG IN WITH GOOGLE", for: .normal)
-        
-        button.setImage(#imageLiteral(resourceName: "google"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 7, left: 12, bottom: 7, right: (button.bounds.width - 45))
-        button.titleEdgeInsets = UIEdgeInsets(top: 5, left: (-(button.bounds.width*2-120)), bottom: 5, right: 5)
-        
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: -47, bottom: 5, right: 5)
+        //button.titleEdgeInsets = UIEdgeInsets(top: 5, left: (-(button.bounds.width*2-120)), bottom: 5, right: 5)
+        button.titleLabel?.textAlignment = NSTextAlignment.center
         button.addShadow()
-        
         self.view.addSubview(button)
         return button
     }
@@ -118,22 +130,51 @@ class LoginOptionsViewController: UIViewController {
         button.center = CGPoint(x: view.center.x, y: (googleButton.center.y+70))
         button.backgroundColor = UIColor.rgb(r: 59, g: 89, b: 152)
         button.addTarget(self, action: #selector(fbButtonAction), for: .touchUpInside)
+        
+        let imageSize = CGSize(width: 25.0, height: 25.0)
+        let icon = ResizeImage(image: #imageLiteral(resourceName: "facebook"), targetSize: imageSize)
+        
+        button.setImage(icon, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("LOG IN WITH FACEBOOK", for: .normal)
-        
-        //button.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
-        //button.imageEdgeInsets = UIEdgeInsets(top: 13, left: 15, bottom: 13, right: (button.bounds.width - 40))
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: -30, bottom: 5, right: 5)
         //button.titleEdgeInsets = UIEdgeInsets(top: 11, left: (-(button.bounds.width*2-200)), bottom: 11, right: 5)
         button.titleLabel?.textAlignment = NSTextAlignment.center
-        
         button.addShadow()
-        
         self.view.addSubview(button)
         return button
     }
     
     @objc func fbButtonAction(sender: UIButton!) {
         print("Facebook Button tapped!")
+    }
+    
+    // used to resize images. ** potentially move to extension
+    // will keep here for now
+    func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width*heightRatio, height: size.height*heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
     
     private func setMyBXButton() -> UIButton {

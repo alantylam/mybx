@@ -16,7 +16,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate=self
-        view.backgroundColor = UIColor.white
+        setBackground()
         // Do any additional setup after loading the view.
         setProfilePicture()
         setLabel()
@@ -24,6 +24,13 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         setSkipButton()
     }
 
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
+    }
+    
     private func setProfilePicture() {
         profilePicture = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         profilePicture.center = CGPoint(x: view.center.x, y: 120)
@@ -64,6 +71,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         label.text = "Add Profile Photo"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)
+        label.textColor = .white
         view.addSubview(label)
     }
     

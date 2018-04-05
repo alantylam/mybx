@@ -23,10 +23,17 @@ class SignUp3ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        setBackground()
         // Do any additional setup after loading the view.
         setLabel()
         setNextButton()
+    }
+    
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
     }
     
     private func setLabel() {
@@ -38,6 +45,7 @@ class SignUp3ViewController: UIViewController {
         label.font = UIFont(name: label.font.fontName, size: 30)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.numberOfLines = 0
+        label.textColor = .white
         view.addSubview(label)
         
     }

@@ -40,53 +40,26 @@ final class MyBXViewController: UITableViewController {
     }
     private var _hasShownFirstELement = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // PLACEHOLDER: sets up table view of favourites
         setupTableView()
         
         let newViewController = LoginOptionsViewController()
-        
-        self.hideKeyboardWhenTappedAround()
-        
-        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
-        self.navigationController?.pushViewController(newViewController, animated: true)
-        /*
-        if (true) {
-            setupLoginOptions()
+        if true { // hard coded 'true' for now, need to check if the user has existing login
+            self.navigationController?.pushViewController(newViewController, animated: true)
         }
- */
+        
+        // create login button for debug purpose
         let loginButton = UIBarButtonItem(title: "Login", style: .done, target: self, action: #selector(showLogin))
+        // set the login button
         navigationItem.rightBarButtonItem = loginButton
     }
     
+    // trigger the login screen
     @objc func showLogin() {
         let newViewController = LoginOptionsViewController()
-        
-        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
         self.navigationController?.pushViewController(newViewController, animated: true)
-        //setupLoginOptions()
-    }
-    
-    private func setupLoginOptions() {
-        // TODO: google button
-        
-        let secondViewController:LoginOptionsViewController = LoginOptionsViewController()
-        
-        secondViewController.tabBarItem = UITabBarItem(title: "MyBX", image: #imageLiteral(resourceName: "my_bx"), selectedImage: #imageLiteral(resourceName: "my_bx"))
-        
-        let navController = UINavigationController(rootViewController: secondViewController)
-        
-        let btnDone = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissNav))
-        //btnDone.tintColor = UIColor.blue
-        navController.topViewController?.navigationItem.rightBarButtonItem = btnDone
-        navController.topViewController?.title = "Login Options"
-        self.present(navController, animated: true, completion: nil)
-    }
-    
-    @objc func dismissNav() {
-        self.dismiss(animated: true, completion: nil)
     }
     
     private func setupTableView() {
@@ -100,14 +73,9 @@ final class MyBXViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        /*
-        if (true) {
-            setupLoginOptions()
-        }*/
         _viewModel.inputs.viewWillAppear()
         tableView.reloadData()
     }
-    
     
     @objc func removePreviewView() {
         _selectedSection = nil

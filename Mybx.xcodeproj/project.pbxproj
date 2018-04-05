@@ -262,6 +262,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		199B0BEC2075F5D5004689C4 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				1927A8B020742E6500D0A59B /* SignUpViewController.swift */,
+				1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */,
+				1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */,
+				1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		8D0942391F93326200348C26 = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +345,7 @@
 		8D0942751F9333F800348C26 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				199B0BEC2075F5D5004689C4 /* SignUp */,
 				8D0942771F93343100348C26 /* BXTabViewController.swift */,
 				8DFEDE491F97F9300061FA92 /* PhotosVC.swift */,
 				8D43709C1FA313CF00136D57 /* XpertListVC.swift */,
@@ -342,10 +354,6 @@
 				4D533DF11FC40EDB00CD2143 /* MyBxViewController.swift */,
 				1927A8AC2073841900D0A59B /* LoginOptionsViewController.swift */,
 				1927A8AE20742E5000D0A59B /* SignInViewController.swift */,
-				1927A8B020742E6500D0A59B /* SignUpViewController.swift */,
-				1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */,
-				1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */,
-				1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

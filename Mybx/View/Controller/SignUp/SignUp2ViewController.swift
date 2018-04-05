@@ -14,12 +14,19 @@ class SignUp2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        view.backgroundColor = UIColor.white
+        setBackground()
         setLabel()
         addCancelButton()
         setNameField()
         setPasswordField()
         setNextButton()
+    }
+    
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
     }
     
     func addCancelButton() {
@@ -55,6 +62,7 @@ class SignUp2ViewController: UIViewController {
         label.text = "Name and Password"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)
+        label.textColor = .white
         view.addSubview(label)
         
         let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
@@ -63,6 +71,7 @@ class SignUp2ViewController: UIViewController {
         label2.text = "Add your name so friends can find you"
         label2.textAlignment = NSTextAlignment.center
         label2.font = UIFont(name: label2.font.fontName, size: 14)
+        label2.textColor = .white
         view.addSubview(label2)
         
     }
