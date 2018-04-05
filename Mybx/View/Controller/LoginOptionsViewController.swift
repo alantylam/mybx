@@ -12,7 +12,7 @@ import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
 
-class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
+class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate {
 
     var googleButton: UIButton!
     var fbButton: UIButton!
@@ -160,17 +160,31 @@ class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate, FBSDKLo
     }
     
     @objc func fbButtonAction(sender: UIButton!) {
-        print("Facebook Button tapped!")
-    }
-    
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil{
-            print(error)
-            return
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                // if user cancel the login
+                if (result?.isCancelled)!{
+                    return
+                }
+                if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    print("Successfully logged in to facebook")
+                    self.getFacebookUserInfo()
+                }
+            }
         }
-        print("Successfully logged in with facebook")
-        getFacebookUserInfo()
     }
+//
+//    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+//        if error != nil{
+//            print(error)
+//            return
+//        }
+//        print("Successfully logged in with facebook")
+//        getFacebookUserInfo()
+//    }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("Logged out with Facebook")
