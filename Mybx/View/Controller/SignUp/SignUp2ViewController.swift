@@ -13,13 +13,20 @@ class SignUp2ViewController: UIViewController {
     var name:UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.white
+        self.hideKeyboardWhenTappedAround()
+        setBackground()
         setLabel()
         addCancelButton()
         setNameField()
         setPasswordField()
         setNextButton()
+    }
+    
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
     }
     
     func addCancelButton() {
@@ -33,6 +40,19 @@ class SignUp2ViewController: UIViewController {
         print("Cancel Button Clicked")
         //TODO change this line to login options
         //self.navigationController?.popToRootViewController(animated: true)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        /*
+         If it is pushed, use this code to revert back to login options screen
+         
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+        for aViewController in viewControllers {
+            if aViewController is LoginOptionsViewController {
+                self.navigationController!.popToViewController(aViewController, animated: true)
+            }
+        }
+         */
     }
     
     private func setLabel() {
@@ -42,6 +62,7 @@ class SignUp2ViewController: UIViewController {
         label.text = "Name and Password"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)
+        label.textColor = .white
         view.addSubview(label)
         
         let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
@@ -50,6 +71,7 @@ class SignUp2ViewController: UIViewController {
         label2.text = "Add your name so friends can find you"
         label2.textAlignment = NSTextAlignment.center
         label2.font = UIFont(name: label2.font.fontName, size: 14)
+        label2.textColor = .white
         view.addSubview(label2)
         
     }
@@ -59,10 +81,10 @@ class SignUp2ViewController: UIViewController {
         name.center.y = 140
         name.center.x = view.center.x
         name.backgroundColor = UIColor.white
-        name.placeholder = "   Full Name"
-        name.layer.cornerRadius = 5.0
-        name.layer.borderWidth = 1.0
-        name.layer.borderColor = UIColor.black.cgColor
+        name.placeholder = "Full Name"
+        
+        name.addShadow()
+        
         self.view.addSubview(name)
     }
     
@@ -71,10 +93,11 @@ class SignUp2ViewController: UIViewController {
         password.center.y = 200
         password.center.x = view.center.x
         password.backgroundColor = UIColor.white
-        password.placeholder = "   Password"
-        password.layer.cornerRadius = 5.0
-        password.layer.borderWidth = 1.0
-        password.layer.borderColor = UIColor.black.cgColor
+        password.placeholder = "Password"
+        password.isSecureTextEntry = true
+        
+        password.addShadow()
+        
         self.view.addSubview(password)
     }
     
@@ -84,10 +107,10 @@ class SignUp2ViewController: UIViewController {
         next.center.x = view.center.x
         next.center.y = 270
         next.setTitle("Next", for: .normal)
-        next.layer.cornerRadius = 12.0
-        next.layer.borderWidth = 1.0
-        next.layer.borderColor = UIColor.black.cgColor
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        next.addShadow()
+        
         self.view.addSubview(next)
     }
     

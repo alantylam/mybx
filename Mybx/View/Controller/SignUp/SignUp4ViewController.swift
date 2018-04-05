@@ -16,7 +16,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate=self
-        view.backgroundColor = UIColor.white
+        setBackground()
         // Do any additional setup after loading the view.
         setProfilePicture()
         setLabel()
@@ -24,6 +24,13 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         setSkipButton()
     }
 
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
+    }
+    
     private func setProfilePicture() {
         profilePicture = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         profilePicture.center = CGPoint(x: view.center.x, y: 120)
@@ -64,6 +71,7 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         label.text = "Add Profile Photo"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)
+        label.textColor = .white
         view.addSubview(label)
     }
     
@@ -73,16 +81,19 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         save.center.x = view.center.x
         save.center.y = view.center.y-70
         save.setTitle("Save", for: .normal)
-        save.layer.cornerRadius = 12.0
-        save.layer.borderWidth = 1.0
-        save.layer.borderColor = UIColor.black.cgColor
         save.addTarget(self, action: #selector(saveButtonClicked), for: .touchUpInside)
+        
+        save.addShadow()
+        
         self.view.addSubview(save)
     }
     
     @objc func saveButtonClicked() {
         print("Save Button Clicked!")
-        self.navigationController?.popToRootViewController(animated: true)
+        //self.navigationController?.popToRootViewController(animated: true)
+        
+        // Save Button clicked, save the profile picture as the user's profile picture
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func setSkipButton() {
@@ -97,12 +108,20 @@ class SignUp4ViewController: UIViewController, UIImagePickerControllerDelegate, 
         skip.center = CGPoint(x: view.center.x, y: view.center.y+250)
         skip.addTarget(self, action: #selector(skipButtonClicked), for: .touchUpInside)
         
+        skip.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        skip.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        skip.layer.shadowOpacity = 1.0
+        skip.layer.shadowRadius = 0.0
+        skip.layer.masksToBounds = false
+        skip.layer.cornerRadius = 4.0
+        
         self.view.addSubview(skip)
     }
     
     @objc func skipButtonClicked() {
         print("Skip Button Clicked!")
-        self.navigationController?.popToRootViewController(animated: true)
+        //self.navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

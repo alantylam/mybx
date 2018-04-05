@@ -4,25 +4,59 @@
 //
 //  Created by Tsz Yeung Lam on 2018-04-03.
 //  Copyright © 2018 Nabil Muthanna. All rights reserved.
-//
+// TODO: use self.present instead of .push
 
 import UIKit
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController , UITextFieldDelegate { // add ", UITextFieldDelegate"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         setBackground()
         setLogo()
         setUsernamePasswordFields()
         setSubmitButton()
-        // Do any additional setup after loading the view.
     }
+        /*
+     if want to move frame according to the keyboard height, add these codes
+     
+     
+        textField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+    }
+    deinit {
+        // Stop listening for keyboard hide/show events
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+    }
+     
+    func hideKeyboard(textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        print("Keyboard will show: \(notification.name.rawValue)")
+        
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        if notification.name == Notification.Name.UIKeyboardWillShow || notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+            view.frame.origin.y = -keyboardRect.height
+        } else {
+            view.frame.origin.y = 0
+        }
+    }*/
+    
     
     private func setLogo() {
         let logo = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
         logo.image = #imageLiteral(resourceName: "mybx_logo_full")
-        logo.center = CGPoint(x: view.center.x, y: view.center.y-175)
+        logo.center = CGPoint(x: view.center.x, y: view.center.y-200)
         view.addSubview(logo)
     }
     
@@ -33,22 +67,14 @@ class SignInViewController: UIViewController {
     }
     
     private func setUsernamePasswordFields() {
+        
         let username = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         username.center.y = view.subviews[1].center.y+150
         username.center.x = view.center.x
         username.backgroundColor = UIColor.white
-        username.placeholder = "   Email"
-        username.layer.cornerRadius = 5.0
-        username.layer.borderWidth = 1.0
-        username.layer.borderColor = UIColor.black.cgColor
+        username.placeholder = "Email"
         
-        /*
-        let arbitraryValue: Int = 5
-        if let newPosition = username.position(from: username.beginningOfDocument, offset: arbitraryValue) {
-            
-            username.selectedTextRange = username.textRange(from: newPosition, to: newPosition)
-        }
-        */
+        username.addShadow()
         
         self.view.addSubview(username)
         
@@ -56,10 +82,11 @@ class SignInViewController: UIViewController {
         password.center.y = username.center.y + 70
         password.center.x = view.center.x
         password.backgroundColor = UIColor.white
-        password.placeholder = "   Password"
-        password.layer.cornerRadius = 5.0
-        password.layer.borderWidth = 1.0
-        password.layer.borderColor = UIColor.black.cgColor
+        password.placeholder = "Password"
+        password.isSecureTextEntry = true
+        
+        password.addShadow()
+        
         self.view.addSubview(password)
     }
     
@@ -69,13 +96,11 @@ class SignInViewController: UIViewController {
         submit.center.x = view.center.x
         submit.center.y = view.subviews[3].center.y + 70
         submit.setTitle("Sign In", for: .normal)
-        submit.layer.cornerRadius = 12.0
-        submit.layer.borderWidth = 1.0
-        submit.layer.borderColor = UIColor.black.cgColor
         submit.addTarget(self, action: #selector(submitButtonClicked), for: .touchUpInside)
         
-        self.view.addSubview(submit)
+        submit.addShadow()
         
+        self.view.addSubview(submit)
     }
     
     @objc func submitButtonClicked() {

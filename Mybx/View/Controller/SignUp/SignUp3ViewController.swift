@@ -23,24 +23,17 @@ class SignUp3ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        setBackground()
         // Do any additional setup after loading the view.
-        
-        // addCancelButton()
         setLabel()
         setNextButton()
     }
-
-    // The below function might not be necessary for this screen
-    func addCancelButton() {
-        let btnCancel = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissScreen))
-        btnCancel.tintColor = .white
-        navigationItem.rightBarButtonItem = btnCancel
-    }
     
-    @objc func dismissScreen() {
-        //self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popToRootViewController(animated: true)
+    // set the back ground picture
+    private func setBackground() {
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = #imageLiteral(resourceName: "mobile-home-college")
+        self.view.addSubview(imageView)
     }
     
     private func setLabel() {
@@ -52,6 +45,7 @@ class SignUp3ViewController: UIViewController {
         label.font = UIFont(name: label.font.fontName, size: 30)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.numberOfLines = 0
+        label.textColor = .white
         view.addSubview(label)
         
     }
@@ -62,10 +56,10 @@ class SignUp3ViewController: UIViewController {
         next.center.x = view.center.x
         next.center.y = view.subviews[0].center.y+110
         next.setTitle("Next", for: .normal)
-        next.layer.cornerRadius = 12.0
-        next.layer.borderWidth = 1.0
-        next.layer.borderColor = UIColor.black.cgColor
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        next.addShadow()
+        
         self.view.addSubview(next)
     }
     
