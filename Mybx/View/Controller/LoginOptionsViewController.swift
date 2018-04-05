@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FacebookCore
+import FacebookLogin
+import FBSDKLoginKit
 
-class LoginOptionsViewController: UIViewController {
+class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
 
     var googleButton: UIButton!
     var fbButton: UIButton!
@@ -18,6 +22,8 @@ class LoginOptionsViewController: UIViewController {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = nil
         navigationItem.hidesBackButton = true
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
         
         setBackground()
         
@@ -94,13 +100,47 @@ class LoginOptionsViewController: UIViewController {
         button.titleEdgeInsets = UIEdgeInsets(top: 5, left: (-(button.bounds.width*2-120)), bottom: 5, right: 5)
         
         self.view.addSubview(button)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(LoginOptionsViewController.receiveToggleAuthUINotification(_:)),
+                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+                                               object: nil)
         return button
     }
     
     @objc func googleButtonAction(sender: UIButton!) {
-        print("Google Button tapped!")
+        GIDSignIn.sharedInstance().signIn()
     }
     
+    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+        // handles data received from server
+        if notification.name.rawValue == "ToggleAuthUINotification" {
+            guard let userInfo = notification.userInfo as? [String:String] else { return }
+            if notification.userInfo != nil {
+                
+                if userInfo["statusText"] == "Success"{
+                    let name = userInfo["fullName"]!
+                    let email = userInfo["email"]!
+                    let googleIdToken = userInfo["googleIdToken"]!
+                    let url = NSURL(string: userInfo["imageURL"]!)!
+                    //self.imageView.image = UIImage(data: NSData(contentsOf: url as URL)! as Data)
+                    
+                    // TODO send data to server
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+                else if userInfo["statusText"] == "Disconnected"{
+                    // TODO handle ui signout here
+                }
+            }
+        }
+    }
+    
+    @IBAction func didTapSignOut(_ sender: AnyObject) {
+        GIDSignIn.sharedInstance().signOut()
+        print("Successfully logged out of Google")
+    }
+    
+    // MARK: Facebook
     private func setFBButton() -> UIButton {
         let button = UIButton(frame: CGRect(x: view.center.x, y: 100, width: 300, height: 50))
         
@@ -121,6 +161,46 @@ class LoginOptionsViewController: UIViewController {
     
     @objc func fbButtonAction(sender: UIButton!) {
         print("Facebook Button tapped!")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil{
+            print(error)
+            return
+        }
+        print("Successfully logged in with facebook")
+        getFacebookUserInfo()
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Logged out with Facebook")
+//        loginView.isHidden = false
+    }
+    
+    func getFacebookUserInfo() {
+        if(FBSDKAccessToken.current() != nil)
+        {
+            //print permissions, such as public_profile
+            print(FBSDKAccessToken.current().permissions)
+            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name, email"])
+            let connection = FBSDKGraphRequestConnection()
+            
+            connection.add(graphRequest, completionHandler: { (connection, result, error) -> Void in
+                
+                print(result!)
+                let data = result as! [String : Any]
+                
+                let name = data["name"] as? String
+                let email = data["email"] as? String
+                let FBid = data["id"] as? String
+                let url = "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1"
+                let accessToken = FBSDKAccessToken.current().tokenString!
+                // TODO send token to server
+                
+                self.navigationController?.popToRootViewController(animated: true)
+            })
+            connection.start()
+        }
     }
     
     private func setMyBXButton() -> UIButton {
