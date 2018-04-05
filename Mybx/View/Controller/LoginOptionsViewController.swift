@@ -13,6 +13,7 @@ class LoginOptionsViewController: UIViewController {
     var googleButton: UIButton!
     var fbButton: UIButton!
     var myBXButton: UIButton!
+    var navController: UINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class LoginOptionsViewController: UIViewController {
     private func setLogo() {
         let logo = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
         logo.image = #imageLiteral(resourceName: "mybx_logo_full")
-        logo.center = CGPoint(x: view.center.x, y: view.center.y-175)
+        logo.center = CGPoint(x: view.center.x, y: view.center.y-200)
         view.addSubview(logo)
     }
     
@@ -62,16 +63,24 @@ class LoginOptionsViewController: UIViewController {
     
     @objc func signUpButtonAction(sender: UIButton!) {
         print("Sign Up Button tapped!")
-        let newViewController = SignUpViewController()
-        
-        //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
-        self.navigationController?.pushViewController(newViewController, animated: true)
+        let signUpVC = SignUpViewController()
+        //let navController = UINavigationController(rootViewController: signUpVC)
+        navController = UINavigationController(rootViewController: signUpVC)
+        self.present(navController, animated: true, completion: (signUpCompletion))
+    }
+    
+    func signUpCompletion() {
+        // check if the user created an account. If so, then switch to profile screen, else, maintain login screen.
+        // for now we assume user finished the sign up process.
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     private func setBackground() {
         let imageView = UIImageView(frame: self.view.bounds)
         imageView.image = #imageLiteral(resourceName: "mobile-home-college") //if its in images.xcassets
         self.view.addSubview(imageView)
+ 
+        //self.view.backgroundColor = UIColor.white
     }
     
     private func setButtons() {
@@ -92,6 +101,8 @@ class LoginOptionsViewController: UIViewController {
         button.setImage(#imageLiteral(resourceName: "google"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 7, left: 12, bottom: 7, right: (button.bounds.width - 45))
         button.titleEdgeInsets = UIEdgeInsets(top: 5, left: (-(button.bounds.width*2-120)), bottom: 5, right: 5)
+        
+        button.addShadow()
         
         self.view.addSubview(button)
         return button
@@ -115,6 +126,8 @@ class LoginOptionsViewController: UIViewController {
         //button.titleEdgeInsets = UIEdgeInsets(top: 11, left: (-(button.bounds.width*2-200)), bottom: 11, right: 5)
         button.titleLabel?.textAlignment = NSTextAlignment.center
         
+        button.addShadow()
+        
         self.view.addSubview(button)
         return button
     }
@@ -131,6 +144,8 @@ class LoginOptionsViewController: UIViewController {
         
         button.setTitleColor(.white, for: .normal)
         button.setTitle("LOG IN VIA EMAIL", for: .normal)
+        
+        button.addShadow()
         
         self.view.addSubview(button)
         return button

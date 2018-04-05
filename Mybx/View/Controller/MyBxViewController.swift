@@ -48,6 +48,8 @@ final class MyBXViewController: UITableViewController {
         
         let newViewController = LoginOptionsViewController()
         
+        self.hideKeyboardWhenTappedAround()
+        
         //newViewController.navigationController?.navigationItem.rightBarButtonItem = btnCancel
         self.navigationController?.pushViewController(newViewController, animated: true)
         /*

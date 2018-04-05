@@ -10,13 +10,14 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    var signedUp:Bool!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         view.backgroundColor = UIColor.white
         setBackground()
         setLabel()
-        //addCancelButton()
+        addCancelButton()
         setEmailField()
         setNextButton()
     }
@@ -34,8 +35,8 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func dismissScreen() {
-        //self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+        //self.navigationController?.popToRootViewController(animated: true)
     }
 
     private func setLabel() {
@@ -55,10 +56,10 @@ class SignUpViewController: UIViewController {
         email.center.y = 110
         email.center.x = view.center.x
         email.backgroundColor = UIColor.white
-        email.placeholder = "   Email"
-        email.layer.cornerRadius = 5.0
-        email.layer.borderWidth = 1.0
-        email.layer.borderColor = UIColor.black.cgColor
+        email.placeholder = "Email"
+        
+        email.addShadow()
+        
         self.view.addSubview(email)
     }
     
@@ -68,10 +69,10 @@ class SignUpViewController: UIViewController {
         next.center.x = view.center.x
         next.center.y = 180
         next.setTitle("Next", for: .normal)
-        next.layer.cornerRadius = 12.0
-        next.layer.borderWidth = 1.0
-        next.layer.borderColor = UIColor.black.cgColor
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        next.addShadow()
+        
         self.view.addSubview(next)
     }
     

@@ -13,7 +13,7 @@ class SignUp2ViewController: UIViewController {
     var name:UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         view.backgroundColor = UIColor.white
         setLabel()
         addCancelButton()
@@ -33,6 +33,19 @@ class SignUp2ViewController: UIViewController {
         print("Cancel Button Clicked")
         //TODO change this line to login options
         //self.navigationController?.popToRootViewController(animated: true)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        /*
+         If it is pushed, use this code to revert back to login options screen
+         
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+        for aViewController in viewControllers {
+            if aViewController is LoginOptionsViewController {
+                self.navigationController!.popToViewController(aViewController, animated: true)
+            }
+        }
+         */
     }
     
     private func setLabel() {
@@ -59,10 +72,10 @@ class SignUp2ViewController: UIViewController {
         name.center.y = 140
         name.center.x = view.center.x
         name.backgroundColor = UIColor.white
-        name.placeholder = "   Full Name"
-        name.layer.cornerRadius = 5.0
-        name.layer.borderWidth = 1.0
-        name.layer.borderColor = UIColor.black.cgColor
+        name.placeholder = "Full Name"
+        
+        name.addShadow()
+        
         self.view.addSubview(name)
     }
     
@@ -71,10 +84,11 @@ class SignUp2ViewController: UIViewController {
         password.center.y = 200
         password.center.x = view.center.x
         password.backgroundColor = UIColor.white
-        password.placeholder = "   Password"
-        password.layer.cornerRadius = 5.0
-        password.layer.borderWidth = 1.0
-        password.layer.borderColor = UIColor.black.cgColor
+        password.placeholder = "Password"
+        password.isSecureTextEntry = true
+        
+        password.addShadow()
+        
         self.view.addSubview(password)
     }
     
@@ -84,10 +98,10 @@ class SignUp2ViewController: UIViewController {
         next.center.x = view.center.x
         next.center.y = 270
         next.setTitle("Next", for: .normal)
-        next.layer.cornerRadius = 12.0
-        next.layer.borderWidth = 1.0
-        next.layer.borderColor = UIColor.black.cgColor
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        next.addShadow()
+        
         self.view.addSubview(next)
     }
     

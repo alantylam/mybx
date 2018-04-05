@@ -25,22 +25,8 @@ class SignUp3ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-        
-        // addCancelButton()
         setLabel()
         setNextButton()
-    }
-
-    // The below function might not be necessary for this screen
-    func addCancelButton() {
-        let btnCancel = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissScreen))
-        btnCancel.tintColor = .white
-        navigationItem.rightBarButtonItem = btnCancel
-    }
-    
-    @objc func dismissScreen() {
-        //self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popToRootViewController(animated: true)
     }
     
     private func setLabel() {
@@ -62,10 +48,10 @@ class SignUp3ViewController: UIViewController {
         next.center.x = view.center.x
         next.center.y = view.subviews[0].center.y+110
         next.setTitle("Next", for: .normal)
-        next.layer.cornerRadius = 12.0
-        next.layer.borderWidth = 1.0
-        next.layer.borderColor = UIColor.black.cgColor
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+        next.addShadow()
+        
         self.view.addSubview(next)
     }
     

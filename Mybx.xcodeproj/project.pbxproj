@@ -13,6 +13,8 @@
 		1927A8B32074636D00D0A59B /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */; };
 		1927A8B5207466AD00D0A59B /* SignUp3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */; };
 		1927A8B720748D2700D0A59B /* SignUp4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */; };
+		199B0BE92075E125004689C4 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199B0BE82075E125004689C4 /* UIButton.swift */; };
+		199B0BEB2075E427004689C4 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199B0BEA2075E427004689C4 /* UITextField.swift */; };
 		40FD37D680DCAD9F05B7E000 /* Pods_Mybx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E255B06BB63A351923EA4D9D /* Pods_Mybx.framework */; };
 		417464A32061CC3D00248DBF /* BeautyEnthusiastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */; };
 		417464A52061CCB700248DBF /* BeautyEnthusiast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417464A42061CCB700248DBF /* BeautyEnthusiast.swift */; };
@@ -117,6 +119,8 @@
 		1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
 		1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp3ViewController.swift; sourceTree = "<group>"; };
 		1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp4ViewController.swift; sourceTree = "<group>"; };
+		199B0BE82075E125004689C4 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		199B0BEA2075E427004689C4 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2A93996FEFED77E1A9F6EA61 /* Pods-MybxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MybxUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MybxUITests/Pods-MybxUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32754ADA3CD69A470D1ABB49 /* Pods_MybxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MybxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyEnthusiastViewController.swift; sourceTree = "<group>"; };
@@ -334,11 +338,11 @@
 				8DFEDE491F97F9300061FA92 /* PhotosVC.swift */,
 				8D43709C1FA313CF00136D57 /* XpertListVC.swift */,
 				4D2D87F81FA10A0D004CA81E /* XpertProfileScreen.swift */,
+				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */,
 				4D533DF11FC40EDB00CD2143 /* MyBxViewController.swift */,
 				1927A8AC2073841900D0A59B /* LoginOptionsViewController.swift */,
 				1927A8AE20742E5000D0A59B /* SignInViewController.swift */,
 				1927A8B020742E6500D0A59B /* SignUpViewController.swift */,
-				417464A22061CC3D00248DBF /* BeautyEnthusiastViewController.swift */,
 				1927A8B22074636D00D0A59B /* SignUp2ViewController.swift */,
 				1927A8B4207466AD00D0A59B /* SignUp3ViewController.swift */,
 				1927A8B620748D2700D0A59B /* SignUp4ViewController.swift */,
@@ -516,6 +520,8 @@
 				8DF275911FA5C38B00BAE9DD /* UIViewController.swift */,
 				8DE120E11FA5D2DE002CC4C4 /* Array.swift */,
 				8D1908621FB94D7700004AB9 /* NSLayoutConstraint.swift */,
+				199B0BE82075E125004689C4 /* UIButton.swift */,
+				199B0BEA2075E427004689C4 /* UITextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -906,11 +912,13 @@
 				8D4207C91FCA75D800CF2EFF /* EndPoint.swift in Sources */,
 				8D4207C71FCA754400CF2EFF /* WebService.swift in Sources */,
 				8D43709D1FA313CF00136D57 /* XpertListVC.swift in Sources */,
+				199B0BEB2075E427004689C4 /* UITextField.swift in Sources */,
 				8DEDC6EC1FAAA261004AD8E2 /* RemoteContent.swift in Sources */,
 				8DD1ED0F1FD65B46001402DA /* MenuBar.swift in Sources */,
 				8D4370811FA29DE500136D57 /* InstaItem.swift in Sources */,
 				8D4207C11FCA73DF00CF2EFF /* Result.swift in Sources */,
 				8D4207BD1FCA738B00CF2EFF /* Resource.swift in Sources */,
+				199B0BE92075E125004689C4 /* UIButton.swift in Sources */,
 				8D43707F1FA29DC400136D57 /* BXCategory.swift in Sources */,
 				8D4207C31FCA740500CF2EFF /* WebserviceError.swift in Sources */,
 				8DFEDE441F97E8910061FA92 /* UIView.swift in Sources */,
