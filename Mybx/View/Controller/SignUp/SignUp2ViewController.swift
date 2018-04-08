@@ -105,7 +105,7 @@ class SignUp2ViewController: UIViewController {
         let next = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         next.backgroundColor = UIColor.rgb(r: 240, g: 98, b: 96)
         next.center.x = view.center.x
-        next.center.y = 270
+        next.center.y = view.frame.maxY-140
         next.setTitle("Next", for: .normal)
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         

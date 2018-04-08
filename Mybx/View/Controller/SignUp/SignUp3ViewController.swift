@@ -39,7 +39,7 @@ class SignUp3ViewController: UIViewController {
     private func setLabel() {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         label.center.x = view.center.x
-        label.center.y = 100
+        label.center.y = 80
         label.text = "Welcome to myBeautyXpert, " + username + "!"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: label.font.fontName, size: 30)
@@ -54,7 +54,7 @@ class SignUp3ViewController: UIViewController {
         let next = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         next.backgroundColor = UIColor.rgb(r: 240, g: 98, b: 96)
         next.center.x = view.center.x
-        next.center.y = view.subviews[0].center.y+110
+        next.center.y = view.frame.maxY-140
         next.setTitle("Next", for: .normal)
         next.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         

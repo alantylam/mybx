@@ -5,6 +5,7 @@
 //  Created by Amjad Al-Absi on 2017-11-21.
 //  Copyright © 2017 Nabil Muthanna. All rights reserved.
 //
+// This is the profile page.
 
 import UIKit
 import ZLSwipeableViewSwift
