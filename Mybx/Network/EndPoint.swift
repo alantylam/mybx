@@ -80,6 +80,8 @@ enum BXEndPoints: EndPoint {
     case itemsForCategory(BXCategory)
     case itemsForXpert(withUsername: String)
     case reportItem(withId: String)
+    case googleLogin(withId: String, withEmail: String)
+    case getEnthusiast(withToken: String)
     
     var extendedPath: String {
         switch self {
@@ -91,6 +93,10 @@ enum BXEndPoints: EndPoint {
             return "/load_user"
         case .reportItem(_):
             return "/report"
+        case .googleLogin(_):
+            return "/login/google"
+        case .getEnthusiast(_):
+            return "/enthusiast/get"
         }
     }
     

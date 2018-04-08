@@ -23,7 +23,7 @@ public enum WebServiceInterface {
 
 final class WebService {
     
-    private let session = URLSession.shared
+    public let session = URLSession.shared
     
     // MARK: - API
     
@@ -53,5 +53,18 @@ final class WebService {
         return task
     }
     
+    
+    func load_enth<T>(_ resource: Resource<T>, completion: @escaping CompletionHandler<T>) -> URLSessionDataTask {
+        
+        let req = URLRequest(resource)
+        
+        let task = session.dataTask(with: req) { data, response, error in
+            let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            //print(dataString!)
+            
+        }
+        task.resume()
+        return task
+    }
 }
 
