@@ -70,14 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         return facebookHandler
     }
     
-    /*func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Google signin setup - handle url properly that app receives at the end of authentication process
-        // NOTE: This only works for IOS 9 and newer
-        return GIDSignIn.sharedInstance().handle(url,
-                                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-                                                 annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-    }*/
-    
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let err  = error{
@@ -93,6 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let googleAccessToken = user.authentication.accessToken else {return}
         
         
+        let uID = user.userID
+        
         let fullName = user.profile.name
         let email = user.profile.email
         var imageURL = ""
@@ -102,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
-            userInfo: ["statusText": "Success", "googleIdToken": googleIdToken, "googleAccessToken": googleAccessToken,"fullName": fullName, "email": email, "imageURL": imageURL])
+            userInfo: ["statusText": "Success", "googleIdToken": googleIdToken, "googleAccessToken": googleAccessToken,"fullName": fullName, "email": email, "imageURL": imageURL, "ID": uID])
         
     }
     

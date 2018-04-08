@@ -146,7 +146,56 @@ class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate {
                     let email = userInfo["email"]!
                     let googleIdToken = userInfo["googleIdToken"]!
                     let url = NSURL(string: userInfo["imageURL"]!)!
+                    let googleAccess = userInfo["googleAccessToken"]!
+                    let googleUID = userInfo["ID"]!
                     //self.imageView.image = UIImage(data: NSData(contentsOf: url as URL)! as Data)
+                    
+                    let result = BeautyEnthusiast.googleLogin(id: googleUID, email: email)
+                
+//                        let task = WebServiceInterface.Manager.shared.load_enth(result){ [weak self] res in
+//                            print("INSIDE LOOP")
+//                            print(res)
+//                            self.
+//                       }
+                    let req = URLRequest(result)
+                    let session = URLSession.shared.dataTask(with: req) { data, response, error in
+                        //let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as! String
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
+                            {
+                                guard let token = json["user"]!["token"]! as? String else{return}
+                                print(token)
+                                // talk to server
+                                let result2 = BeautyEnthusiast.getEnthusiast(token: token)
+                                let req2 = URLRequest(result2)
+                                let session2 = URLSession.shared.dataTask(with: req2) { data, response, error in
+                                    do{
+                                        if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
+                                        {
+                                            guard let user = json["user"]! as? [String: AnyObject] else{return}
+                                            print("UUUUUUSER")
+                                            print(user)
+                                            
+                                        }
+                                        else{
+                                            print ("REAL BAD JSON")
+                                        }
+                                    }catch let error as NSError{
+                                            print(error)
+                                    }
+                                }
+                                session2.resume()
+                                
+                            }
+                            else {
+                                print("bad json")
+                            }
+                        } catch let error as NSError {
+                            print(error)
+                        }
+                    }
+                    session.resume()
+                    
                     
                     // TODO send data to server
                     self.navigationController?.popToRootViewController(animated: true)
@@ -156,6 +205,11 @@ class LoginOptionsViewController: UIViewController, GIDSignInUIDelegate {
                 }
             }
         }
+    }
+    
+    func printToken(beautyEnthusiast: BeautyEnthusiast){
+        print(beautyEnthusiast.token)
+        
     }
     
     @IBAction func didTapSignOut(_ sender: AnyObject) {
