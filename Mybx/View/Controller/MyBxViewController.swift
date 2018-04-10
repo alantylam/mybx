@@ -15,7 +15,6 @@ private enum Sections {
     case xperts, hair, eyelashes, makeup, eyebrows
 }
 
-
 final class MyBXViewController: UITableViewController {
 
     
