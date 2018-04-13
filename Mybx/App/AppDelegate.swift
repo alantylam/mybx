@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         startAppFlow()
         
-        
+        //window?.rootViewController = UINavigationController(rootViewController: ProfilePageViewController())
         
         return true
     }

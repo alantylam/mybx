@@ -244,6 +244,7 @@ class BXMenuBar: UIView, UICollectionViewDelegateFlowLayout {
     private func setupUI() {
         
         addSubviews([collectionView, horizontalBarView])
+        // the following will change the size of menubar
         collectionView.layoutTo(edges: [.left, .top, .right, .bottom], ofView: self, withMargin: 0)
         horizontalBarLeftConstrint = horizontalBarView.leftAnchor.constraint(equalTo: leftAnchor)
         horizontalBarView.layoutTo(edges: [.bottom], ofView: self, withMargin: 0)
