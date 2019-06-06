@@ -55,7 +55,7 @@ final class PhotosVC: UICollectionViewController {
         return layout
     }()
     
-    init(viewModel: PhotosViewModelType, isProfile: Bool = false) {
+    init(viewModel: PhotosViewModelType, isProfile: Bool = false, _layout: CHTCollectionViewWaterfallLayout) {
         _viewModel = viewModel
         _isProfile = isProfile
         super.init(collectionViewLayout: _layout)
